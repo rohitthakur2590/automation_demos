@@ -1,0 +1,23 @@
+---
+- name: Network Backup Automation Experience
+  hosts: network
+  gather_facts: true
+  tasks:
+    - name: Perform pre-run checks
+      ansible.builtin.include_tasks:
+        file: ./pre_remote_validation.yaml
+
+    - name: "Create backup for {{ inventory_hostname }} when diff found"
+      ansible.builtin.include_role:
+        name: network.backup.run
+      vars:
+        operation: backup
+        type: diff
+        data_store:
+          scm:
+            origin:
+              url: "{{ GH_REPO }}"
+              token: "{{ GH_ACCESS_TOKEN }}"
+              user:
+                name: "{{ GH_USERNAME }}"
+                email: "{{ GH_EMAIL }}"
