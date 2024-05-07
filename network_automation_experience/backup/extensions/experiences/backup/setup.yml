@@ -1,0 +1,39 @@
+---
+# Labels
+#
+controller_labels:
+  - name: operations
+    organization: Default
+
+# Projects
+#
+controller_projects:
+  - name: Network Backup Experience Playbooks Project
+    organization: Default
+    scm_branch: main
+    scm_clean: 'no'
+    scm_delete_on_update: 'no'
+    scm_type: git
+    scm_update_on_launch: 'no'
+    scm_url: https://github.com/rohitthakur2590/network.backup
+
+
+# Job Templates
+#
+controller_templates:
+  - name: Operations / Network Backup
+    instance_groups:
+      - default
+    inventory: Network Inventory
+    project: Network Backup Experience Playbooks Project
+    playbook: extensions/experiences/backup/playbooks/full_backup_remote.yaml
+    job_tags: operations
+    labels: operations
+  - name: Operations / Network Backup
+    instance_groups:
+      - default
+    inventory: Network Inventory
+    project: Network Backup Experience Playbooks Project
+    playbook: extensions/experiences/backup/playbooks/diff_backup_remote.yaml
+    job_tags: operations
+    labels: operations
